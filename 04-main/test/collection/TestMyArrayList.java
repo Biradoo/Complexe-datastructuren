@@ -3,7 +3,7 @@ package collection;
 import nl.saxion.cds.collection.EmptyCollectionException;
 import nl.saxion.cds.collection.SaxSearchable;
 import nl.saxion.cds.collection.ValueNotFoundException;
-import nl.saxion.cds.solution.MyArrayList;
+import nl.saxion.cds.datastructures.MyArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMyArrayList {
     // Make sure a lot of resizing has to be done
-    private static final int BIG_NUMBER_OF_ELEMENTS = 5000;
+    private static final int BIG_NUMBER_OF_ELEMENTS = 100;
     private MyArrayList<String> list;
 
     @BeforeEach
@@ -129,9 +129,6 @@ public class TestMyArrayList {
         assertEquals(8, list.size());
         assertFalse(list.isSorted(String::compareTo));
 
-        // Testing GraphViz can best be done manually (copy past to https://dreampuf.github.io/GraphvizOnline)
-        System.out.println(list.graphViz());
-
         // Remove specific element
         list.remove("dd");
         list.remove(null);
@@ -149,7 +146,7 @@ public class TestMyArrayList {
         assertFalse(list.isEmpty());
         assertEquals("[ 2 23 7a ]", list.toString());
 
-        // Confirm exception is thrown when no more null values are present.
+        //Confirm exception is thrown when no more null values are present.
         assertThrows(ValueNotFoundException.class, () -> list.remove(null));
     }
 

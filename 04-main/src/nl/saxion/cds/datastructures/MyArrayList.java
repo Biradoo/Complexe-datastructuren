@@ -1,4 +1,4 @@
-package nl.saxion.cds.solution;
+package nl.saxion.cds.datastructures;
 
 import nl.saxion.cds.collection.*;
 
@@ -185,7 +185,21 @@ public class MyArrayList<V> implements SaxList<V>, SaxSearchable<V>, SaxSortable
 
     @Override
     public boolean isSorted(Comparator<V> comparator) {
-        // TODO: implement isSorted()
+        if (isEmpty()) throw new EmptyCollectionException();
+
+        if (size == 1) return true; //List is sorted if size is 1
+
+        for (int i = 1; i < size; i++) {
+            V previous = (V) elements[i -1];
+            V current = (V) elements[i];
+
+            if(previous == null && current != null) {
+                return false; //Null will be treated as smaller so if non null is followed by null = list not sorted
+            }
+            if (previous != null && current != null && comparator.compare(previous, current) > 0) {
+                return false; //If two elements next to eachother are out of order, list is not sorted
+            }
+        }
         return true;
     }
 
@@ -258,15 +272,27 @@ public class MyArrayList<V> implements SaxList<V>, SaxSearchable<V>, SaxSortable
      * @return the current index of the pivot
      */
     private int splitInPlace(Comparator<V> comparator, int begin, int end) {
-        V pivot = get(begin); // first element (at begin) as pivot
-
+        V pivot = get(begin); //First element (at begin) as pivot
         int left = begin;
         int right = end;
-        int index = right;
 
-        // TODO: complete splitInPlace()
+        while (left <= right) {
+            while (left <= right && comparator.compare((V) elements[left], pivot) <= 0) {
+                left++; //Move left forward while elements are less than or equal to the pivot
+            }
+            while (left <= right && comparator.compare((V) elements[right], pivot) > 0) {
+                right--; //Move right backward while elements are greater than the pivot
+            }
+            if (left < right) {
+                //Swap elements if they are out of place
+                swap(left, right);
+                left++;
+                right--;
+            }
+        }
 
-        return right; // Returns index of pivot
+        swap(begin, right); //Swap pivot element into its correct position
+        return right; //Returns index of pivot
     }
 
     @Override
@@ -281,7 +307,23 @@ public class MyArrayList<V> implements SaxList<V>, SaxSearchable<V>, SaxSortable
 
     @Override
     public int binarySearch(Comparator<V> comparator, V element) {
-        // TODO: implement binarySearch()
+        int left = 0; //First element
+        int right = size - 1; //Last element
+
+        while (left <= right) {
+            int mid = left + right / 2;
+            V midElement = get(mid);
+
+            int comparison = comparator.compare(midElement, element);
+
+            if (comparison == 0) {
+                return mid; //If mid is the searched for element
+            } else if (comparison < 0) {
+                left = mid + 1; //Search in right half
+            } else {
+                right = mid - 1; //Search in left half
+            }
+        }
         return SaxSearchable.NOT_FOUND;
     }
 

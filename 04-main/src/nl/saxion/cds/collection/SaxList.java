@@ -6,6 +6,7 @@ package nl.saxion.cds.collection;
  * @param <V> Type of objects to be contained.
  */
 public interface SaxList<V> extends SaxCollection<V>, Iterable<V> {
+
     /**
      * Check if a given value is in the collection
      * Uses V.equals() to check for equality.

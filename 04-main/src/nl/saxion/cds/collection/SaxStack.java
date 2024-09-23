@@ -6,7 +6,7 @@ package nl.saxion.cds.collection;
  *
  * @param <V> Type of objects to be contained in this stack collection.
  */
-public interface SaxStack<V> extends SaxCollection<V> {
+public interface SaxStack<V extends Comparable<V>> extends SaxCollection<V> {
     /**
      * Add the value to the stack (on top).
      *

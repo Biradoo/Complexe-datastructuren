@@ -1,4 +1,4 @@
-package nl.saxion.cds.solution;
+package nl.saxion.cds.datastructures;
 
 public record Coordinate(double latitude, double longitude) implements Comparable<Coordinate> {
     /**

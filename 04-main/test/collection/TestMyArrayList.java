@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMyArrayList {
     // Make sure a lot of resizing has to be done
-    private static final int BIG_NUMBER_OF_ELEMENTS = 100;
+    private static final int BIG_NUMBER_OF_ELEMENTS = 5000;
     private MyArrayList<String> list;
 
     @BeforeEach
@@ -153,6 +153,7 @@ public class TestMyArrayList {
     @Test
     void GivenListWithIntegers_WhenQuicksorted_ThenListIsSorted() {
         MyArrayList<Integer> list3 = createIntegerArrayList();
+        assertFalse(list3.isSorted(Integer::compareTo));
         list3.quickSort(Integer::compareTo);
         System.out.println(list3);
         assertTrue(list3.isSorted(Integer::compareTo));
@@ -182,22 +183,22 @@ public class TestMyArrayList {
         return list;
     }
 
-    @Test
+    @Test @BeforeEach
     void GivenLargeList_WhenMakingChanges_ConfirmStateRemainsCorrect() {
-        MyArrayList<Integer> list = new MyArrayList<>();
+        MyArrayList<Integer> bigListWithNumbers = new MyArrayList<>();
         for (int i = 0; i < BIG_NUMBER_OF_ELEMENTS; ++i) {
-            list.addLast(i);
+            bigListWithNumbers.addLast(i);
         }
-        assertEquals(BIG_NUMBER_OF_ELEMENTS, list.size());
+        assertEquals(BIG_NUMBER_OF_ELEMENTS, bigListWithNumbers.size());
 
         // Test removing all elements one by one
-        assertEquals(BIG_NUMBER_OF_ELEMENTS, list.size());
+        assertEquals(BIG_NUMBER_OF_ELEMENTS, bigListWithNumbers.size());
         for (int i = BIG_NUMBER_OF_ELEMENTS / 2; i > 0; --i) {
-            assertEquals(i, list.removeAt(i));
-            list.removeLast();
+            assertEquals(i, bigListWithNumbers.removeAt(i));
+            bigListWithNumbers.removeLast();
         }
-        assertFalse(list.contains(0));
-        assertEquals(0, list.size());
+        assertFalse(bigListWithNumbers.contains(0));
+        assertEquals(0, bigListWithNumbers.size());
 
         // Create a list of random integers to test with simpleSort()
         MyArrayList<Integer> list2 = new MyArrayList<>();
@@ -233,6 +234,8 @@ public class TestMyArrayList {
         assertEquals(SaxSearchable.NOT_FOUND, list3.binarySearch(Integer::compareTo, -1));
 
         // Test linearSearch
+        v = 0;
+        i = 0;
         v = list3.get(0);
         i = list3.linearSearch(v); // Compare value, because list may contain double values
         assertEquals(v, list3.get(i));

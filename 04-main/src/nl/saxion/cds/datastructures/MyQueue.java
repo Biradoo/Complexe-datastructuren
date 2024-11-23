@@ -4,10 +4,9 @@ import nl.saxion.cds.collection.EmptyCollectionException;
 import nl.saxion.cds.collection.SaxQueue;
 
 public class MyQueue<V> implements SaxQueue<V> {
-    private final MyLinkedList<V> list;
+    private final MyLinkedList<V> list = new MyLinkedList<>();
 
-    public MyQueue(MyLinkedList<V> list) {
-        this.list = list;
+    public MyQueue() {
     }
 
     @Override
@@ -23,11 +22,6 @@ public class MyQueue<V> implements SaxQueue<V> {
     @Override
     public String graphViz(String name) {
         return null;
-    }
-
-    @Override
-    public String graphViz() {
-        return SaxQueue.super.graphViz();
     }
 
     @Override

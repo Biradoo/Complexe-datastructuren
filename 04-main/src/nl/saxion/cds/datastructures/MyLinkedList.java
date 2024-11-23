@@ -236,9 +236,11 @@ public class MyLinkedList<T> implements SaxList<T> {
         Node<T> current = head; //Start from the head of the list
         int index = 0; //To keep track of node identifiers
 
-        // Generate nodes for each element in the doubly linked list
+        //Generate nodes for each element in the doubly linked list
         while (current != null) {
-            sb.append("    node").append(index).append(" [label=<<table border=\"0\" cellspacing=\"0\" cellborder=\"1\"><tr>\n")
+            sb.append("    node")
+                    .append(index)
+                    .append(" [label=<<table border=\"0\" cellspacing=\"0\" cellborder=\"1\"><tr>\n")
                     .append("      <td port=\"ref1\" width=\"28\" height=\"36\" fixedsize=\"true\"></td>\n")
                     .append("      <td port=\"data\" width=\"28\" height=\"36\" fixedsize=\"true\">")
                     .append(current.data) // Append the data of the node
@@ -256,14 +258,22 @@ public class MyLinkedList<T> implements SaxList<T> {
         //Define edges between nodes
         sb.append("  e -> node0:ref1:c [arrowhead=dot, arrowtail=vee, dir=both, headclip=false];\n");
         for (int i = 0; i < index - 1; i++) {
-            sb.append("  node").append(i).append(":ref2:c -> node").append(i + 1)
+            sb.append("  node")
+                    .append(i)
+                    .append(":ref2:c -> node")
+                    .append(i + 1)
                     .append(":data:n [arrowhead=vee, arrowtail=dot, dir=both, tailclip=false];\n");
         }
-        sb.append("  node").append(index - 1).append(":ref2:c -> d:w [arrowhead=vee, arrowtail=dot, dir=both, tailclip=false];\n");
+        sb.append("  node")
+                .append(index - 1)
+                .append(":ref2:c -> d:w [arrowhead=vee, arrowtail=dot, dir=both, tailclip=false];\n");
 
         //Add backward links for the doubly linked list
         for (int i = index - 1; i > 0; i--) {
-            sb.append("  node").append(i).append(":ref1:c -> node").append(i - 1)
+            sb.append("  node")
+                    .append(i)
+                    .append(":ref1:c -> node")
+                    .append(i - 1)
                     .append(":data:s [arrowhead=vee, arrowtail=dot, dir=both, tailclip=false];\n");
         }
 

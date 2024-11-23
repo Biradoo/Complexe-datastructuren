@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestMyStack {
-    private static final int BIG_NUMBER_OF_ELEMENTS = 5000;
     private MyStack<Integer> stack;
 
     @BeforeEach
@@ -18,57 +17,57 @@ public class TestMyStack {
     }
 
     @Test
-    void testIsEmptyTrue() {
-        assertTrue(stack.isEmpty(), "Stack is empty");
+    void GivenEmptyStack_WhenAskingIsEmpty_ThenReturnsTrue() {
+        assertTrue(stack.isEmpty());
     }
 
     @Test
-    void testIsEmptyFalse() {
+    void GivenNonEmptyStack_WhenAskingIsEmpty_ThenReturnsFalse() {
         stack.push(1);
-        assertFalse(stack.isEmpty(), "Stack is not empty ");
+        assertFalse(stack.isEmpty());
     }
 
     @Test
-    void testSize() {
-        assertEquals(0, stack.size(), "Stack is empty");
+    void GivenStack_WhenAskingSize_ThenReturnsRightSize() {
+        assertEquals(0, stack.size());
         stack.push(1);
-        assertEquals(1, stack.size(), "Stack size should be 1 after one push");
+        assertEquals(1, stack.size());
         stack.push(2);
-        assertEquals(2, stack.size(), "Stack size should be 2 after two pushes");
+        assertEquals(2, stack.size());
     }
 
     @Test
-    void testPush() {
+    void GivenEmptyStack_WhenPushingValue10_ThenSizeIs1AndValueIs10() {
         stack.push(10);
-        assertEquals(1, stack.size(), "Stack size should be 1 after one push");
-        assertDoesNotThrow(() -> assertEquals(10, stack.peek(), "Top element should be 10 after pushing 10"));
+        assertEquals(1, stack.size());
+        assertDoesNotThrow(() -> assertEquals(10, stack.peek()));
     }
 
     @Test
-    void testPop() throws EmptyCollectionException {
+    void GivenStack_WhenPopping_ThenReturnsPoppedValueAndRightSize() throws EmptyCollectionException {
         stack.push(10);
         stack.push(20);
-        assertEquals(20, stack.pop(), "Popped value should be 20");
-        assertEquals(1, stack.size(), "Stack size should be 1 after one pop");
-        assertEquals(10, stack.pop(), "Popped value should be 10 after second pop");
-        assertEquals(0, stack.size(), "Stack size should be 0 after popping all elements");
+        assertEquals(20, stack.pop());
+        assertEquals(1, stack.size());
+        assertEquals(10, stack.pop());
+        assertEquals(0, stack.size());
     }
 
     @Test
-    void testPopEmptyStackThrowsException() {
+    void GivenEmptyStack_WhenPopping_ThenThrowsException() {
         assertThrows(EmptyCollectionException.class, () -> stack.pop(), "Popping from empty stack should throw EmptyCollectionException");
     }
 
     @Test
-    void testPeek() throws EmptyCollectionException {
+    void GivenStack_WhenPeeking_ReturnsRightValue() throws EmptyCollectionException {
         stack.push(10);
         stack.push(20);
-        assertEquals(20, stack.peek(), "Peeked value should be 20 after pushing 10 and 20");
-        assertEquals(2, stack.size(), "Stack size should remain 2 after peek");
+        assertEquals(20, stack.peek());
+        assertEquals(2, stack.size());
     }
 
     @Test
-    void testPeekEmptyStackThrowsException() {
+    void GivenEmptyStack_WhenPeeking_ThrowsException() {
         assertThrows(EmptyCollectionException.class, () -> stack.peek(), "Peeking into an empty stack should throw EmptyCollectionException");
     }
 }

@@ -4,7 +4,6 @@ import nl.saxion.cds.collection.DuplicateKeyException;
 import nl.saxion.cds.collection.EmptyCollectionException;
 import nl.saxion.cds.collection.KeyNotFoundException;
 import nl.saxion.cds.collection.SaxList;
-import nl.saxion.cds.datastructures.MyArrayList;
 import nl.saxion.cds.datastructures.MyHashMap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +32,6 @@ public class TestMyHashMap {
 
     @Test
     void GivenEmptyList_WhenTryingToAccessElements_ThenThrowsException() {
-        assertThrows(EmptyCollectionException.class, () -> map.contains(1));
         assertThrows(EmptyCollectionException.class, () -> map.get(1));
         assertThrows(EmptyCollectionException.class, () -> map.remove(1));
         assertThrows(EmptyCollectionException.class, () -> map.getKeys());
@@ -105,6 +103,15 @@ public class TestMyHashMap {
         map.add(1, "value1");
         assertTrue(map.contains(1));
         assertThrows(DuplicateKeyException.class, () -> map.add(1, "value1"));
+    }
+
+    @Test
+    void GivenNonEmptyList_WhenPuttingWithExistingKey_ThenRemovesFirstThenAdds(){
+        map.add(1, "value1");
+        assertEquals(1, map.size());
+        map.put(1, "valueOne");
+        assertEquals("valueOne", map.get(1));
+        assertEquals(1, map.size());
     }
 
     @Test

@@ -29,14 +29,7 @@ public class MyHashMap<K, V> implements SaxHashMap<K, V> {
     }
 
     @Override
-    public String graphViz() {
-        return SaxHashMap.super.graphViz();
-    }
-
-    @Override
     public boolean contains(K key) {
-        if (isEmpty()) throw new EmptyCollectionException();
-
         int index = findIndex(key); //Find key of index
         return index != -1; //Return true if key is found (-1 means no key found)
     }
@@ -72,6 +65,14 @@ public class MyHashMap<K, V> implements SaxHashMap<K, V> {
         size++;
     }
 
+    public void put(K key, V value) {
+        //If the key already exists, remove the old entry before adding the new one
+        if (contains(key)) {
+            remove(key);
+        }
+        add(key, value);
+    }
+
     @Override
     public V remove(K key) throws KeyNotFoundException {
         if (isEmpty()) throw new EmptyCollectionException();
@@ -90,7 +91,7 @@ public class MyHashMap<K, V> implements SaxHashMap<K, V> {
     }
 
     @Override
-    public SaxList<K> getKeys() {
+    public MyArrayList<K> getKeys() {
         if (isEmpty()) throw new EmptyCollectionException();
 
         MyArrayList<K> keys = new MyArrayList<>(); //List to store all keys
@@ -104,7 +105,7 @@ public class MyHashMap<K, V> implements SaxHashMap<K, V> {
     }
 
 
-    public SaxList<V> values() { //Get a list of all values in the HashMap
+    public MyArrayList<V> values() { //Get a list of all values in the HashMap
         if (isEmpty()) throw new EmptyCollectionException();
         MyArrayList<V> valuesList = new MyArrayList<>(); //Create a list to store the values
 

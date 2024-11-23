@@ -12,8 +12,7 @@ public class TestMyQueue {
     private MyQueue<Integer> queue;
     @BeforeEach
     void setUp() {
-        MyLinkedList<Integer> list = new MyLinkedList<>(); // Using MyLinkedList as the internal list
-        queue = new MyQueue<>(list);
+        queue = new MyQueue<>();
     }
 
     @Test

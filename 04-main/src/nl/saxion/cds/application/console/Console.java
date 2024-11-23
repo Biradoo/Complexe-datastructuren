@@ -1,24 +1,29 @@
 package nl.saxion.cds.application.console;
 
 import nl.saxion.cds.application.models.Station;
-import nl.saxion.cds.application.models.Track;
 import nl.saxion.cds.application.readers.StationsCSVReader;
 import nl.saxion.cds.application.readers.TracksCSVReader;
 import nl.saxion.cds.application.utils.InputReader;
+import nl.saxion.cds.collection.SaxGraph;
+import nl.saxion.cds.collection.SaxList;
 import nl.saxion.cds.collection.ValueNotFoundException;
 import nl.saxion.cds.datastructures.MyArrayList;
 import nl.saxion.cds.datastructures.MyHashMap;
+import nl.saxion.cds.datastructures.graph.HeuristicEstimator;
+import nl.saxion.cds.datastructures.graph.MyGraph;
 
 import java.util.Comparator;
 
 
 public class Console {
     private final MyHashMap<String, Station> stations = StationsCSVReader.readCSV("resources/stations.csv");
-    private final MyArrayList<Track> tracks = TracksCSVReader.readCSV("resources/tracks.csv");
+    private final MyGraph<String> tracks = TracksCSVReader.readCSV("resources/tracks.csv");
     private final InputReader inputReader = new InputReader();
 
     public Console() {
     }
+
+
 
     private void printStationsBasedOnTypeAlphabetical() {
         printDifferentTypes();
@@ -117,7 +122,7 @@ public class Console {
 
     private MyArrayList<Station> filterStationByType(String type) {
         MyArrayList<Station> filteredStations = new MyArrayList<>();
-        //Filter basedo on type
+        //Filter based on type
         for (Station station : stations.values()) {
             if (station.getType().equalsIgnoreCase(type)) {
                 filteredStations.addLast(station);
@@ -161,15 +166,46 @@ public class Console {
                     printStationsBasedOnTypeAlphabetical();
                     break;
                 case 3:
-                    //todo: - [ ] Determine shortest route from 1 station to another, show route and total length
+                    showShortestRouteBetweenStations();
                     break;
                 case 4:
-                    //todo: - [ ] Make an MSCT
+                    //todo: - [ ] Make an MSCT -- Couldnt implement
                     break;
                 case 5:
                     break;
                 default:
                     System.out.println("Invalid selection. Please try again!");
+            }
+        }
+    }
+
+    private void showShortestRouteBetweenStations() {
+        boolean found = false;
+        while (!found) {
+            String[] route = new String[2];
+            System.out.println("Please give the code of a starting station.");
+            route[0] = inputReader.readString().toUpperCase();
+            System.out.println("Please give the code of the destination.");
+            route[1] = inputReader.readString().toUpperCase();
+
+            if (!stations.contains(route[0]) || !stations.contains(route[1])) { // Check if stations exist
+                System.out.println("Station code not found. Please try again.");
+            } else {
+                SaxList<SaxGraph.DirectedEdge<String>> path = tracks.shortestPathAStar(route[0], route[1], new HeuristicEstimator<>(stations));
+                if (path != null && !path.isEmpty()) {
+                    System.out.println("Shortest path between " + route[0] + " and " + route[1] + ":");
+
+                    double totalDistance = 0.0;
+                    for (SaxGraph.DirectedEdge<String> edge : path) {
+                        System.out.println(edge.from() + " -> " + edge.to() + " : " + edge.weight());
+                        totalDistance += edge.weight(); //Accumulate the distance
+                    }
+
+                    System.out.printf("Total distance: %.2f\n", totalDistance);
+                    found = true;
+                } else {
+                    System.out.println("No path found between the selected stations.");
+                }
             }
         }
     }

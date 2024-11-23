@@ -5,7 +5,7 @@ import nl.saxion.cds.collection.*;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MyArrayList<V> implements SaxList<V>, SaxSearchable<V>, SaxSortable<V> {
+public class MyArrayList<V> implements nl.saxion.cds.collection.SaxList<V>, SaxSearchable<V>, SaxSortable<V> {
     // Minimal size of the internal array
     private static final int MINIMUM_SIZE = 32;
     // Extending means doubling in size, until the size is bigger than this maximum extension size
@@ -311,7 +311,7 @@ public class MyArrayList<V> implements SaxList<V>, SaxSearchable<V>, SaxSortable
         int right = size - 1; //Last element
 
         while (left <= right) {
-            int mid = left + right / 2;
+            int mid = left + (right-left) / 2;
             V midElement = get(mid);
 
             int comparison = comparator.compare(midElement, element);

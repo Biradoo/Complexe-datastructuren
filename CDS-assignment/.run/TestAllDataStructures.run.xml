@@ -1,0 +1,70 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestAllDataStructures" type="JUnit" factoryName="JUnit">
+    <module name="04-main" />
+    <extension name="coverage" sample_coverage="false">
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.graph.DFSIterator" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.graph.DijkstraNode" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.graph.HeuristicEstimator" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.graph.MyGraph" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.graph.Node" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyArrayList" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyAVLTree" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyHashMap" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyHashMap" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyLinkedList" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyMinHeap" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyPriorityQueue" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyQueue" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="nl.saxion.cds.datastructures.MyStack" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="MAIN_CLASS_NAME" value="" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="directory" />
+    <dir value="$PROJECT_DIR$/test/collection" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
